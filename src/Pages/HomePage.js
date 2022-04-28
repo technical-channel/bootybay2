@@ -124,7 +124,7 @@ function HomePage() {
                 </div>
                 <div className=" opacity-100 ">
                   <div className=" rounded-[15px] overflow-y-auto h-full opacity-100 mx-auto">
-                    <div className=" rounded-md max-w-[400px] mx-auto w-full h-full bg-[#0b0b08cc] p-[32px]">
+                    <div className=" rounded-md max-w-[520px] mx-auto w-full h-full bg-[#0b0b08cc] p-[32px]">
                       <div className=" w-full">
                         {" "}
                         <div className="text-white font-bold text-[40px] py-4">
@@ -181,7 +181,7 @@ function HomePage() {
                             <span>Total</span>
                             <span>
                               {" "}
-                              {parseFloat(Counter * 0.33).toFixed(2)}
+                              {parseFloat(Counter * price).toFixed(3)}
                               &nbsp; ETH
                             </span>
                           </div>
