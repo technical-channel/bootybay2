@@ -103,12 +103,12 @@ function HomePage() {
               <div className="overflow-hidden flex-1 relative h-full md:mb-0 mb-[40px] ">
                 <Slider />
               </div>
-              <div className=" relative rounded flex flex-col justify-center md:flex-1 w-full md:max-w-4xl mx-auto h-screen ">
-                <div className="mb-[32px] text-white text-xl text-center font-semibold ">
+              <div className=" relative rounded flex flex-col md:justify-center md:flex-1 w-full md:max-w-4xl mx-auto ">
+                <div className=" text-white text-xl text-center font-semibold ">
                   <div>Special Price for Discord Members</div>
                   <div>APRIL 28-2AM EST</div>
                 </div>
-                <div className="px-2 mb-[32px] text-white text-xl text-center flex justify-between font-semibold">
+                <div className="px-2 my-[25px] text-white text-xl text-center flex justify-between font-semibold">
                   <div>
                     <div>Supply</div>
                     <div>{supply}</div>
