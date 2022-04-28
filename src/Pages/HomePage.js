@@ -92,128 +92,130 @@ function HomePage() {
         </div>
       ) : (
         <>
-          <div className="relative">
-            {/* <img
-              src={"https://www.aku.world/images/1.jpeg"}
-              alt=""
-              className="absolute h-full w-full"
-            ></img> */}
-
-            <div className="h-full max-w-[1080px] relative mx-auto relative flex flex-col-reverse md:flex-row md:h-screen">
-              <div className="overflow-hidden flex-1 relative h-full md:mb-0 mb-[40px] ">
+          <div className="h-full overflow-y-scroll">
+            <div className=" max-w-[1080px] max-h-[800px] relative mx-auto relative flex flex-col-reverse md:flex-row ">
+              <div className="hidden md:block overflow-hidden flex-1 relative  md:mb-0 mb-[40px] ">
                 <Slider />
               </div>
-              <div className=" relative rounded flex flex-col md:justify-center md:flex-1 w-full md:max-w-4xl mx-auto ">
-                <div className=" text-white text-xl text-center font-semibold ">
-                  <div>Special Price for Discord Members</div>
-                  <div>APRIL 28-2AM EST</div>
-                </div>
-                <div className="px-2 my-[25px] text-white text-xl text-center flex justify-between font-semibold">
-                  <div>
-                    <div>Supply</div>
-                    <div>{supply}</div>
+              <div className=" flex-1">
+                <div className="relative rounded flex flex-col md:justify-center md:flex-1 w-full md:max-w-4xl mx-auto ">
+                  <div className=" text-white text-xl text-center font-semibold ">
+                    <div className=" text-white text-xl text-center font-semibold ">
+                      Special Price for Discord Members
+                    </div>
+                    <div className=" text-white text-base text-center font-semibold ">
+                      APRIL 28-2AM EST
+                    </div>
                   </div>
-                  <div>
-                    <div>Price</div>
-                    <div>{price}&nbsp;ETH</div>
+                  <div className="px-2 my-[25px] text-white text-xl text-center flex justify-between font-semibold">
+                    <div>
+                      <div>Supply</div>
+                      <div>{supply}</div>
+                    </div>
+                    <div>
+                      <div>Price</div>
+                      <div>{price}&nbsp;ETH</div>
+                    </div>
+                    <div>
+                      <div>MAX</div>
+                      <div>{maxNFT} PER WALLET</div>
+                    </div>
                   </div>
-                  <div>
-                    <div>MAX</div>
-                    <div>{maxNFT} PER WALLET</div>
-                  </div>
-                </div>
-                <div className=" opacity-100 ">
-                  <div className=" rounded-[15px] overflow-y-auto h-full opacity-100 mx-auto">
-                    <div className=" rounded-md max-w-[520px] mx-auto w-full h-full bg-[#0b0b08cc] p-[32px]">
-                      <div className=" w-full">
-                        {" "}
-                        <div className="text-white font-bold text-[40px] py-4">
-                          BONUS SALE
-                        </div>
-                        {/* NFT Block */}
-                        <div className="mb-[32px] items-center p-[12px] border-2 border-white text-white rounded-md flex justify-between p-[12px]">
-                          <div>
-                            <img
-                              width="82px"
-                              className="rounded-md"
-                              src={
-                                process.env.PUBLIC_URL +
-                                "boot-bay-assets/NFT.gif"
-                              }
-                            ></img>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-sm">Price per NFT</div>
-                            <div className="text-white text-2xl">
-                              {price} ETH Each
-                            </div>
-                          </div>
-                        </div>
-                        {/* Counter */}
-                        <div>
+                  <div className="opacity-100 ">
+                    <div className=" rounded-[15px] overflow-y-auto h-full opacity-100 mx-auto">
+                      <div className=" rounded-md max-w-[520px] mx-auto w-full h-full bg-[#0b0b08cc] p-[32px]">
+                        <div className=" w-full">
                           {" "}
-                          <div className="mb-[32px] border-2 border-white rounded-md flex justify-between p-[12px] bg-[#7b7b7b69]">
-                            <div className="flex items-center text-white justify-center ">
-                              <span
-                                className="text-xl mx-2 text-white cursor-pointer"
-                                onClick={handleDecrement}
-                              >
-                                <BiMinus />
-                              </span>
-                              <span className="" max={5}>
-                                {Counter}
-                              </span>
-                              <span
-                                className="text-xl mx-2 text-white cursor-pointer"
-                                onClick={handleIncrement}
-                              >
-                                <BiPlus />
-                              </span>
+                          <div className="text-white font-bold text-[40px] py-4">
+                            BONUS SALE
+                          </div>
+                          {/* NFT Block */}
+                          <div className="mb-[32px] items-center p-[12px] border-2 border-white text-white rounded-md flex justify-between p-[12px]">
+                            <div className="bg-black rounded-md">
+                              <img
+                                width="82px"
+                                className="rounded-md"
+                                src={
+                                  process.env.PUBLIC_URL +
+                                  "boot-bay-assets/NFT.gif"
+                                }
+                              ></img>
                             </div>
-                            {/* Set MAximaum Limit */}
-                            <div
-                              className="bg-white text-sm py-[5px] px-[15px] shadow-white shadow-lg "
-                              onClick={setMax}
-                              style={{ boxShadow: "0 0 10px 2px #fff" }}
-                            >
-                              SET MAX
+                            <div className="text-right">
+                              <div className="text-sm">Price per NFT</div>
+                              <div className="text-white text-2xl">
+                                {price} ETH Each
+                              </div>
                             </div>
                           </div>
-                          <hr className=""></hr>
-                          <div className="h-[65px] items-center flex justify-between font-bold text-xl xl:text-base  text-white">
-                            <span>Total</span>
-                            <span>
-                              {" "}
-                              {parseFloat(Counter * price).toFixed(3)}
-                              &nbsp; ETH
-                            </span>
-                          </div>
-                          <hr className="mb-[32px]"></hr>
-                          <div className="">
-                            {Connect ? (
-                              <button
-                                className="xl:text-sm py-[5px] px-[15px]  w-auto text-sm bg-white text-black "
+                          {/* Counter */}
+                          <div>
+                            <div className="mb-[32px] border-2 border-white rounded-md flex justify-between p-[12px] bg-[#7b7b7b69]">
+                              <div className="flex items-center text-white justify-center ">
+                                <span
+                                  className="text-xl mx-2 text-white cursor-pointer"
+                                  onClick={handleDecrement}
+                                >
+                                  <BiMinus />
+                                </span>
+                                <span className="" max={5}>
+                                  {Counter}
+                                </span>
+                                <span
+                                  className="text-xl mx-2 text-white cursor-pointer"
+                                  onClick={handleIncrement}
+                                >
+                                  <BiPlus />
+                                </span>
+                              </div>
+                              {/* Set MAximaum Limit */}
+                              <div
+                                className="bg-white text-[12px] py-[5px] px-[15px] shadow-white shadow-lg "
+                                onClick={setMax}
                                 style={{ boxShadow: "0 0 10px 2px #fff" }}
-                                onClick={Buy}
                               >
-                                MINT
-                              </button>
-                            ) : (
-                              <button
-                                className=" xl:text-base  py-[5px] px-[15px]  w-full text-sm bg-white text-black "
-                                onClick={_HandleConnect}
-                                style={{ boxShadow: "0 0 10px 2px #fff" }}
-                              >
-                                CONNECT WALLET
-                              </button>
-                            )}
-                            <div>
-                              <ProgressBar />
+                                SET MAX
+                              </div>
+                            </div>
+                            <hr className=""></hr>
+                            <div className="h-[65px] items-center flex justify-between font-bold text-base xl:text-base  text-white">
+                              <span>Total</span>
+                              <span>
+                                {" "}
+                                {parseFloat(Counter * price).toFixed(3)}
+                                &nbsp; ETH
+                              </span>
+                            </div>
+                            <hr className="mb-[32px]"></hr>
+                            <div className="">
+                              {Connect ? (
+                                <button
+                                  className="xl:text-sm py-[5px] px-[15px]  w-auto text-sm bg-white text-black font-bold"
+                                  style={{ boxShadow: "0 0 10px 2px #fff" }}
+                                  onClick={Buy}
+                                >
+                                  MINT
+                                </button>
+                              ) : (
+                                <button
+                                  className=" xl:text-base  py-[5px] px-[15px] mb-2 w-auto text-sm bg-white text-black font-bold "
+                                  onClick={_HandleConnect}
+                                  style={{ boxShadow: "0 0 10px 2px #fff" }}
+                                >
+                                  CONNECT WALLET
+                                </button>
+                              )}
+                              <div>
+                                <ProgressBar />
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div className="md:hidden block">
+                    <Slider />
                   </div>
                 </div>
               </div>

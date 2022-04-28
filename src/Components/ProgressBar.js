@@ -58,7 +58,7 @@ function ProgressBar() {
 
   return (
     <div className="">
-      <h3 className="text-base  text-white xl:text-base">{Counter}/999</h3>
+      <h3 className="text-base  text-white xl:text-base">{Counter} / 999</h3>
       {/* <div class="w-full relative  rounded-full h-2.5 bg-white">
         <div
           class="bg-[#25770b] h-full rounded-full"

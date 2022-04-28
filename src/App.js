@@ -23,7 +23,9 @@ function App() {
   });
   return (
     <div className="App">
-      <HomePage />
+      <main className="h-screen overflow-hidden">
+        <HomePage />
+      </main>
     </div>
   );
 }
