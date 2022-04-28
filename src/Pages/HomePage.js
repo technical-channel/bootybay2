@@ -137,7 +137,7 @@ function HomePage() {
                                 className="rounded-md"
                                 src={
                                   process.env.PUBLIC_URL +
-                                  "boot-bay-assets/NFT.gif"
+                                  "boot-bay-assets/NFT_82x82.png"
                                 }
                               ></img>
                             </div>
