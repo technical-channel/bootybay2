@@ -7,42 +7,42 @@ function Slider() {
         <div class="item">
           <img
             alt=""
-            src="https://aku.mintyournfts.live/static/media/slide1.gif"
+            src={process.env.PUBLIC_URL + "boot-bay-assets/slide1.gif"}
             width="400px"
           />
         </div>
         <div class="item">
           <img
             alt=""
-            src="https://aku.mintyournfts.live/static/media/slide1.gif"
+            src={process.env.PUBLIC_URL + "boot-bay-assets/slide1.gif"}
             width="400px"
           />
         </div>
         <div class="item">
           <img
             alt=""
-            src="https://aku.mintyournfts.live/static/media/slide1.gif"
+            src={process.env.PUBLIC_URL + "boot-bay-assets/slide1.gif"}
             width="400px"
           />
         </div>
         <div class="item">
           <img
             alt=""
-            src="https://aku.mintyournfts.live/static/media/slide1.gif"
+            src={process.env.PUBLIC_URL + "boot-bay-assets/slide1.gif"}
             width="400px"
           />
         </div>
         <div class="item">
           <img
             alt=""
-            src="https://aku.mintyournfts.live/static/media/slide1.gif"
+            src={process.env.PUBLIC_URL + "boot-bay-assets/slide1.gif"}
             width="400px"
           />
         </div>
         <div class="item">
           <img
             alt=""
-            src="https://aku.mintyournfts.live/static/media/slide1.gif"
+            src={process.env.PUBLIC_URL + "boot-bay-assets/slide1.gif"}
             width="400px"
           />
         </div>

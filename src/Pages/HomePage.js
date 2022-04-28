@@ -100,10 +100,10 @@ function HomePage() {
             ></img> */}
 
             <div className="h-full max-w-[1080px] relative mx-auto relative flex flex-col-reverse md:flex-row md:h-screen">
-              <div className="overflow-hidden flex-1 relative h-full  ">
+              <div className="overflow-hidden flex-1 relative h-full md:mb-0 mb-[40px] ">
                 <Slider />
               </div>
-              <div className=" relative rounded flex flex-col justify-center md:flex-1 w-full md:max-w-4xl mx-auto ">
+              <div className=" relative rounded flex flex-col justify-center md:flex-1 w-full md:max-w-4xl mx-auto h-screen ">
                 <div className="mb-[32px] text-white text-xl text-center font-semibold ">
                   <div>Special Price for Discord Members</div>
                   <div>APRIL 28-2AM EST</div>
@@ -136,7 +136,10 @@ function HomePage() {
                             <img
                               width="82px"
                               className="rounded-md"
-                              src="https://aku.mintyournfts.live/static/media/gifius.gif"
+                              src={
+                                process.env.PUBLIC_URL +
+                                "boot-bay-assets/NFT.gif"
+                              }
                             ></img>
                           </div>
                           <div className="text-right">
