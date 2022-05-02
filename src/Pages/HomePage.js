@@ -98,8 +98,8 @@ function HomePage() {
           <div className="hidden md:block overflow-hidden flex-1 relative  md:mb-0 mb-[40px] ">
             <Slider />
           </div>
-          <div className=" flex-1 flex items-center">
-            <div className="relative rounded flex flex-col md:justify-center md:flex-1 w-full md:max-w-4xl mx-auto ">
+          <div className=" flex-1 flex items-center h-screen py-[50px]">
+            <div className="relative rounded flex flex-col md:justify-center md:flex-1 w-full md:max-w-4xl mx-auto h-full">
               <div className=" text-white text-xl text-center font-semibold ">
                 <div className=" text-white text-xl text-center font-semibold ">
                   Special Price for Discord Members
@@ -218,7 +218,7 @@ function HomePage() {
                   </div>
                 </div>
               </div>
-              <div className="md:hidden block">
+              <div className="md:hidden block py-[20px]">
                 <Slider />
               </div>
             </div>

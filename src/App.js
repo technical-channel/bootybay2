@@ -21,11 +21,6 @@ function App() {
         method: "wallet_switchEthereumChain",
         params: [{ chainId: "0x1" }],
       });
-    } else {
-      ConnectWallet().then((res) => {
-        // setConnect(true);
-        store.getState().ConnectivityReducer.metamaskConnect = true;
-      });
     }
   }, []);
   return (
