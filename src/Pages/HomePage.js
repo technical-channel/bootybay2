@@ -112,7 +112,7 @@ function HomePage() {
                   {moment(new Date(EST).getTime())
                     .format("MMM D - hh:mm a")
                     .toString()
-                    .toLocaleUpperCase()}
+                    .toLocaleUpperCase()}{" "}
                   EST
                 </div>
               </div>
