@@ -5,6 +5,7 @@ import { store } from "../Redux/store";
 // import { PayoutTokenABI } from "../config/abi/PayoutContract";
 // import { web3_ } from "./Web3Connection";
 import Swal from "sweetalert2";
+import { ConnectWallet } from "./Web3Connection";
 let web3 = new Web3(window.ethereum);
 
 function Index() {
@@ -92,10 +93,11 @@ export default Index;
 
 // conncet Wallet
 export async function connectToWallet() {
-  const accounts = await window.ethereum.request({
-    method: "eth_requestAccounts",
-  });
-  const account = accounts[0];
+  // const accounts = await window.ethereum.request({
+  //   method: "eth_requestAccounts",
+  // });
+  let data = await ConnectWallet();
+  const account = data[0].accounts[0].address;
   console.log(account);
   return { accountAddress: account };
 }
