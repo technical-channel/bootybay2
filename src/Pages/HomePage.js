@@ -106,7 +106,7 @@ function HomePage() {
                     </div>
                     <div className=" text-white text-base text-center font-semibold ">
                       {moment(new Date().getTime())
-                        .format("MMM D - HH a")
+                        .format("MMM D - hh:mm a")
                         .toString()
                         .toLocaleUpperCase()}
                     </div>
@@ -174,7 +174,7 @@ function HomePage() {
                               </div>
                               {/* Set MAximaum Limit */}
                               <div
-                                className="bg-white text-[12px] py-[5px] px-[15px] shadow-white shadow-lg "
+                                className="bg-white text-[12px] py-[5px] px-[15px] shadow-white shadow-lg cursor-pointer"
                                 onClick={setMax}
                                 style={{ boxShadow: "0 0 10px 2px #fff" }}
                               >
