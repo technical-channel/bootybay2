@@ -11,6 +11,9 @@ import Slider from "../Components/Slider";
 import moment from "moment";
 
 const price = 0.009;
+const EST = new Date().toLocaleString("en-US", {
+  timeZone: "America/New_York",
+});
 const maxNFT = 5;
 function HomePage() {
   const [Counter, setCounter] = useState(1);
@@ -22,6 +25,7 @@ function HomePage() {
       setSupply(await Contract.methods.supply().call());
     }
   }, []);
+
   async function _HandleConnect() {
     await getAllAccountDetails()
       .then(async (res) => {
@@ -105,10 +109,11 @@ function HomePage() {
                   Special Price for Discord Members
                 </div>
                 <div className=" text-white text-base text-center font-semibold ">
-                  {moment(new Date().getTime())
+                  {moment(new Date(EST).getTime())
                     .format("MMM D - hh:mm a")
                     .toString()
                     .toLocaleUpperCase()}
+                  EST
                 </div>
               </div>
               <div className="px-2 my-[25px] text-white text-xl text-center flex justify-between font-semibold">

@@ -8,7 +8,6 @@ import { store } from "../Redux/store";
 export let web3 = new Web3(window.ethereum);
 console.log(window.ethereum);
 const injected = injectedModule();
-
 const MAINNET_RPC_URL =
   "https://mainnet.infura.io/v3/9c48d1f781404552b1a017d597f6bee1";
 
