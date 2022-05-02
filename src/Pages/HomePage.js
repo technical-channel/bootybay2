@@ -8,6 +8,7 @@ import { Contract } from "../Services/Web3Connection";
 import ProgressBar from "../Components/ProgressBar";
 import "./Slider.css";
 import Slider from "../Components/Slider";
+import moment from "moment";
 const web3_ = new Web3(window.ethereum);
 const price = 0.009;
 const maxNFT = 5;
@@ -93,18 +94,21 @@ function HomePage() {
       ) : (
         <>
           <div className="h-full overflow-y-scroll">
-            <div className=" max-w-[1080px] max-h-[800px] relative mx-auto relative flex flex-col-reverse md:flex-row ">
+            <div className=" max-w-[1080px] h-full relative mx-auto relative flex flex-col-reverse md:flex-row ">
               <div className="hidden md:block overflow-hidden flex-1 relative  md:mb-0 mb-[40px] ">
                 <Slider />
               </div>
-              <div className=" flex-1">
+              <div className=" flex-1 flex items-center">
                 <div className="relative rounded flex flex-col md:justify-center md:flex-1 w-full md:max-w-4xl mx-auto ">
                   <div className=" text-white text-xl text-center font-semibold ">
                     <div className=" text-white text-xl text-center font-semibold ">
                       Special Price for Discord Members
                     </div>
                     <div className=" text-white text-base text-center font-semibold ">
-                      APRIL 28-2AM EST
+                      {moment(new Date().getTime())
+                        .format("MMM D - HH a")
+                        .toString()
+                        .toLocaleUpperCase()}
                     </div>
                   </div>
                   <div className="px-2 my-[25px] text-white text-xl text-center flex justify-between font-semibold">
