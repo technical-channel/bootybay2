@@ -51,8 +51,8 @@ const onboard = Onboard({
 
 export const ConnectWallet = async () => {
   const wallets = await onboard.connectWallet();
-  console.log(wallets[0].chains[0].id);
-  web3 = new Web3(wallets[0].provider);
+  const { accounts, chains, provider } = wallets[0];
+  web3 = new Web3(provider);
   store.getState().ConnectivityReducer.Contract = new web3.eth.Contract(
     NFTAbi,
     NFTContractAddress
