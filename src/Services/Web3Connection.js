@@ -51,13 +51,13 @@ const onboard = Onboard({
 
 export const ConnectWallet = async () => {
   const wallets = await onboard.connectWallet();
-  console.log(wallets[0]);
+  console.log(wallets[0].chains[0].id);
   web3 = new Web3(wallets[0].provider);
   store.getState().ConnectivityReducer.Contract = new web3.eth.Contract(
     NFTAbi,
     NFTContractAddress
   );
-  if (window.ethereum !== undefined) {
+  if (wallets[0].chains[0].id !== "0x1") {
     window.ethereum.on("chainChanged", (chain) => {
       console.log(chain);
       if ("0x1" !== chain) {
