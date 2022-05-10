@@ -8,6 +8,7 @@ import {
   ConnectWallet,
   Contract,
   web3,
+  DisconnectMobileWallet,
   ConnectWeb3Wallet,
 } from "../Services/Web3Connection";
 import ProgressBar from "../Components/ProgressBar";
@@ -32,7 +33,7 @@ function HomePage() {
   }, []);
 
   async function _HandleConnect() {
-    if (!window.ethereum) {
+    if (window.ethereum) {
       await getAllAccountDetails()
         .then(async (res) => {
           if (res.result !== "") {
@@ -78,7 +79,7 @@ function HomePage() {
       .balanceOf(store.getState().ConnectivityReducer.metamaskAddress)
       .call()
       .then(async (res) => {
-        console.log(res)
+        console.log(res);
         setisTransaction(true);
         if (res >= 5) {
           alert(
@@ -108,6 +109,7 @@ function HomePage() {
               setisTransaction(false);
               setConnect(false);
               setCounter(1);
+              DisconnectMobileWallet();
               alert("User Rejected Transaction");
             });
         }
