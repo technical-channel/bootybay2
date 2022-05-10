@@ -4,7 +4,12 @@ import { BiPlus, BiMinus } from "react-icons/bi";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { getAllAccountDetails, connectToWallet } from "../Services/Index";
 import { store } from "../Redux/store";
-import { ConnectWallet, Contract, web3 } from "../Services/Web3Connection";
+import {
+  ConnectWallet,
+  Contract,
+  web3,
+  ConnectWeb3Wallet,
+} from "../Services/Web3Connection";
 import ProgressBar from "../Components/ProgressBar";
 import "./Slider.css";
 import Slider from "../Components/Slider";
@@ -27,20 +32,31 @@ function HomePage() {
   }, []);
 
   async function _HandleConnect() {
-    await getAllAccountDetails()
-      .then(async (res) => {
-        if (res.result !== "") {
-          setConnect(true);
-          store.getState().ConnectivityReducer.metamaskConnect = true;
-        }
-      })
-      .catch((err) => alert(err));
-    // ConnectWallet()
-    //   .then((res) => {
-    //     setConnect(true);
-    //     store.getState().ConnectivityReducer.metamaskConnect = true;
-    //   })
-    //   .catch((err) => alert(err));
+    if (!window.ethereum) {
+      await getAllAccountDetails()
+        .then(async (res) => {
+          if (res.result !== "") {
+            setConnect(true);
+            store.getState().ConnectivityReducer.metamaskConnect = true;
+          }
+        })
+        .catch((err) => alert(err));
+      // ConnectWallet()
+      //   .then((res) => {
+      //     setConnect(true);
+      //     store.getState().ConnectivityReducer.metamaskConnect = true;
+      //   })
+      //   .catch((err) => alert(err));
+    } else {
+      ConnectWeb3Wallet()
+        .then(async (res) => {
+          if (res.result !== "") {
+            setConnect(true);
+            store.getState().ConnectivityReducer.metamaskConnect = true;
+          }
+        })
+        .catch((err) => alert(err));
+    }
   }
 
   function handleIncrement() {
@@ -57,10 +73,12 @@ function HomePage() {
     setCounter(5);
   }
   async function Buy() {
+    console.log(store.getState().ConnectivityReducer.metamaskAddress);
     await Contract.methods
       .balanceOf(store.getState().ConnectivityReducer.metamaskAddress)
       .call()
       .then(async (res) => {
+        console.log(res)
         setisTransaction(true);
         if (res >= 5) {
           alert(
