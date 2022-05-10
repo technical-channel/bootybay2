@@ -13,8 +13,8 @@ const injected = injectedModule();
 //  Create WalletConnect Provider
 export const provider = new WalletConnectProvider({
   rpc: {
-    // 1: "https://mainnet.infura.io/v3/9c48d1f781404552b1a017d597f6bee1/",
-    1: "https://mainnet.mycustomnode.com",
+    1: "https://mainnet.infura.io/v3/9c48d1f781404552b1a017d597f6bee1/",
+    // 1: "https://mainnet.mycustomnode.com",
   },
   qrcode: true,
   qrcodeModalOptions: {

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Web3 from "web3";
 import { BiPlus, BiMinus } from "react-icons/bi";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { getAllAccountDetails, connectToWallet } from "../Services/Index";
+import { NFTAbi } from "../config/ABI/NFTAbi";
+import { NFTContractAddress } from "../config/Constant/NFTContractAddress";
 import { store } from "../Redux/store";
 import {
   ConnectWallet,
@@ -33,7 +34,7 @@ function HomePage() {
   }, []);
 
   async function _HandleConnect() {
-    if (window.ethereum) {
+    if (!window.ethereum) {
       await getAllAccountDetails()
         .then(async (res) => {
           if (res.result !== "") {
@@ -75,7 +76,8 @@ function HomePage() {
   }
   async function Buy() {
     console.log(store.getState().ConnectivityReducer.metamaskAddress);
-    await Contract.methods
+
+    await new web3.eth.Contract(NFTAbi, NFTContractAddress).methods
       .balanceOf(store.getState().ConnectivityReducer.metamaskAddress)
       .call()
       .then(async (res) => {
