@@ -57,11 +57,21 @@ export const ConnectWallet = async () => {
     NFTAbi,
     NFTContractAddress
   );
-  console.log(
-    await new web3.eth.Contract(NFTAbi, NFTContractAddress).methods
-      .balanceOf(wallets[0].accounts[0].address)
-      .call()
-  );
+  if (window.ethereum !== undefined) {
+    window.ethereum.on("chainChanged", (chain) => {
+      console.log(chain);
+      if ("0x1" !== chain) {
+        window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x1" }],
+        });
+      }
+    });
+    window.ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x1" }],
+    });
+  }
   return wallets;
 };
 
