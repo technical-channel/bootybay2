@@ -6,10 +6,17 @@ import Onboard from "@web3-onboard/core";
 import injectedModule from "@web3-onboard/injected-wallets";
 import { store } from "../Redux/store";
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import walletConnectModule from "@web3-onboard/walletconnect";
 import { showCurrentNetwork } from "./Index";
 export let web3 = new Web3(window.ethereum);
 console.log(window.ethereum);
 const injected = injectedModule();
+const walletConnect = walletConnectModule({
+  // bridge: "YOUR_CUSTOM_BRIDGE_SERVER",
+  qrcodeModalOptions: {
+    mobileLinks: ["metamask"],
+  },
+});
 //  Create WalletConnect Provider
 export const provider = new WalletConnectProvider({
   rpc: {
@@ -26,7 +33,7 @@ const MAINNET_RPC_URL =
   "https://mainnet.infura.io/v3/9c48d1f781404552b1a017d597f6bee1";
 
 const onboard = Onboard({
-  wallets: [injected],
+  wallets: [walletConnect, injected],
   chains: [
     {
       id: "0x1",
@@ -46,33 +53,16 @@ export const ConnectWallet = async () => {
   const wallets = await onboard.connectWallet();
   console.log(wallets[0]);
   web3 = new Web3(wallets[0].provider);
+  store.getState().ConnectivityReducer.Contract = new web3.eth.Contract(
+    NFTAbi,
+    NFTContractAddress
+  );
+  console.log(
+    await new web3.eth.Contract(NFTAbi, NFTContractAddress).methods
+      .balanceOf(wallets[0].accounts[0].address)
+      .call()
+  );
   return wallets;
 };
 
-// Wallect Connnect Funcitonltiy
-export const ConnectWeb3Wallet = async () => {
-  await provider.enable();
-  web3 = new Web3(provider);
-  let address = await web3.eth.getAccounts();
-  store.getState().ConnectivityReducer.metamaskAddress = address[0];
-  return { result: await showCurrentNetwork() };
-
-  provider.on("accountsChanged", async (accounts) => {
-    console.log(accounts);
-  });
-
-  // Subscribe to chainId change
-  provider.on("chainChanged", (chainId) => {
-    console.log(chainId);
-  });
-
-  // Subscribe to session disconnection
-  provider.on("disconnect", (code, reason) => {
-    console.log(code, reason);
-  });
-};
-
-export const DisconnectMobileWallet = () => {
-  provider.disconnect();
-};
 export const Contract = new web3.eth.Contract(NFTAbi, NFTContractAddress);

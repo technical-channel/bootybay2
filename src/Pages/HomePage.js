@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
+
 import { BiPlus, BiMinus } from "react-icons/bi";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { getAllAccountDetails, connectToWallet } from "../Services/Index";
-import { NFTAbi } from "../config/ABI/NFTAbi";
-import { NFTContractAddress } from "../config/Constant/NFTContractAddress";
 import { store } from "../Redux/store";
-import {
-  ConnectWallet,
-  Contract,
-  web3,
-  DisconnectMobileWallet,
-  ConnectWeb3Wallet,
-} from "../Services/Web3Connection";
+import { ConnectWallet, Contract, web3 } from "../Services/Web3Connection";
 import ProgressBar from "../Components/ProgressBar";
 import "./Slider.css";
 import Slider from "../Components/Slider";
@@ -34,31 +27,21 @@ function HomePage() {
   }, []);
 
   async function _HandleConnect() {
-    if (!window.ethereum) {
-      await getAllAccountDetails()
-        .then(async (res) => {
-          if (res.result !== "") {
-            setConnect(true);
-            store.getState().ConnectivityReducer.metamaskConnect = true;
-          }
-        })
-        .catch((err) => alert(err));
-      // ConnectWallet()
-      //   .then((res) => {
-      //     setConnect(true);
-      //     store.getState().ConnectivityReducer.metamaskConnect = true;
-      //   })
-      //   .catch((err) => alert(err));
-    } else {
-      ConnectWeb3Wallet()
-        .then(async (res) => {
-          if (res.result !== "") {
-            setConnect(true);
-            store.getState().ConnectivityReducer.metamaskConnect = true;
-          }
-        })
-        .catch((err) => alert(err));
-    }
+    console.log(store.getState().ConnectivityReducer);
+    await getAllAccountDetails()
+      .then(async (res) => {
+        if (res.result !== "") {
+          setConnect(true);
+          store.getState().ConnectivityReducer.metamaskConnect = true;
+        }
+      })
+      .catch((err) => alert(err));
+    // ConnectWallet()
+    //   .then((res) => {
+    //     setConnect(true);
+    //     store.getState().ConnectivityReducer.metamaskConnect = true;
+    //   })
+    //   .catch((err) => alert(err));
   }
 
   function handleIncrement() {
@@ -75,10 +58,11 @@ function HomePage() {
     setCounter(5);
   }
   async function Buy() {
-    console.log(store.getState().ConnectivityReducer.metamaskAddress);
-
-    await new web3.eth.Contract(NFTAbi, NFTContractAddress).methods
-      .balanceOf(store.getState().ConnectivityReducer.metamaskAddress)
+    await store
+      .getState()
+      .ConnectivityReducer.Contract.methods.balanceOf(
+        store.getState().ConnectivityReducer.metamaskAddress
+      )
       .call()
       .then(async (res) => {
         console.log(res);
@@ -91,8 +75,13 @@ function HomePage() {
           );
           setisTransaction(false);
         } else {
-          await Contract.methods
-            .mintBuy(parseInt(Counter))
+          console.log(
+            store.getState().ConnectivityReducer.metamaskAddress,
+            parseInt(Counter)
+          );
+          await store
+            .getState()
+            .ConnectivityReducer.Contract.methods.mintBuy(parseInt(Counter))
             .send({
               from: store.getState().ConnectivityReducer.metamaskAddress,
               value: web3.utils.toWei(`${Counter * price}`, "ether"),
@@ -111,7 +100,8 @@ function HomePage() {
               setisTransaction(false);
               setConnect(false);
               setCounter(1);
-              DisconnectMobileWallet();
+              console.log(store.getState().ConnectivityReducer);
+              console.log(err);
               alert("User Rejected Transaction");
             });
         }
