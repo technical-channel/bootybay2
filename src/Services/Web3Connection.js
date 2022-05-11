@@ -49,7 +49,7 @@ const onboard = Onboard({
 
 export const ConnectWallet = async () => {
   const wallets = await onboard.connectWallet();
-  const { accounts, chains, provider } = wallets[0];
+  const { accounts, chains, provider } = await wallets[0];
   console.log(provider);
   // console.log(new Web3.providers.IpcProvider(provider));
   web3 = new Web3(provider);
