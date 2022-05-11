@@ -22,7 +22,12 @@ function HomePage() {
   const [supply, setSupply] = useState(0);
   useEffect(async () => {
     if (store.getState().ConnectivityReducer.metamaskConnect === true) {
-      setSupply(await Contract.methods.supply().call());
+      setSupply(
+        await store
+          .getState()
+          .ConnectivityReducer.Contract.methods.supply()
+          .call()
+      );
     }
   }, []);
 

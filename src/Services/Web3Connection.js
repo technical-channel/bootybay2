@@ -51,29 +51,29 @@ const onboard = Onboard({
 export const ConnectWallet = async () => {
   const wallets = await onboard.connectWallet();
   const { accounts, chains, provider } = wallets[0];
-  // let data = new ethers.providers.Web3Provider(provider, "any");
-  // console.log(data);
-  // web3 = new Web3(data);
-  // console.log(web3);
-  // store.getState().ConnectivityReducer.Contract = new web3.eth.Contract(
-  //   NFTAbi,
-  //   NFTContractAddress
-  // );
-  // if (wallets[0].chains[0].id !== "0x1") {
-  //   window.ethereum.on("chainChanged", (chain) => {
-  //     console.log(chain);
-  //     if ("0x1" !== chain) {
-  //       window.ethereum.request({
-  //         method: "wallet_switchEthereumChain",
-  //         params: [{ chainId: "0x1" }],
-  //       });
-  //     }
-  //   });
-  //   window.ethereum.request({
-  //     method: "wallet_switchEthereumChain",
-  //     params: [{ chainId: "0x1" }],
-  //   });
-  // }
+  let data = new ethers.providers.Web3Provider(provider, "any");
+  console.log(data);
+  web3 = new Web3(data);
+  console.log(web3);
+  store.getState().ConnectivityReducer.Contract = new web3.eth.Contract(
+    NFTAbi,
+    NFTContractAddress
+  );
+  if (wallets[0].chains[0].id !== "0x1") {
+    window.ethereum.on("chainChanged", (chain) => {
+      console.log(chain);
+      if ("0x1" !== chain) {
+        window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x1" }],
+        });
+      }
+    });
+    window.ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x1" }],
+    });
+  }
   return wallets;
 };
 
