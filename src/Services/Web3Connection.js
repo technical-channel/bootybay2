@@ -8,8 +8,8 @@ import { store } from "../Redux/store";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import walletConnectModule from "@web3-onboard/walletconnect";
 import { showCurrentNetwork } from "./Index";
-export let web3 = new Web3(window.ethereum);
-console.log(window.ethereum, web3);
+export let web3 = new Web3();
+// console.log(window.ethereum, web3);
 const injected = injectedModule();
 const walletConnect = walletConnectModule({
   // bridge: "https://bridge.walletconnect.org",
@@ -76,4 +76,4 @@ export const ConnectWallet = async () => {
   return wallets;
 };
 
-export const Contract = new web3.eth.Contract(NFTAbi, NFTContractAddress);
+export var Contract = new web3.eth.Contract(NFTAbi, NFTContractAddress);
