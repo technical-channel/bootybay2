@@ -9,25 +9,22 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import walletConnectModule from "@web3-onboard/walletconnect";
 import { showCurrentNetwork } from "./Index";
 export let web3 = new Web3(window.ethereum);
-console.log(window.ethereum);
+console.log(window.ethereum, web3);
 const injected = injectedModule();
 const walletConnect = walletConnectModule({
-  // bridge: "YOUR_CUSTOM_BRIDGE_SERVER",
-  qrcodeModalOptions: {
-    mobileLinks: ["metamask"],
-  },
+  // bridge: "https://bridge.walletconnect.org",
 });
 //  Create WalletConnect Provider
-export const provider = new WalletConnectProvider({
-  rpc: {
-    1: "https://mainnet.infura.io/v3/9c48d1f781404552b1a017d597f6bee1/",
-    // 1: "https://mainnet.mycustomnode.com",
-  },
-  qrcode: true,
-  qrcodeModalOptions: {
-    mobileLinks: ["metamask"],
-  },
-});
+// export const provider = new WalletConnectProvider({
+//   rpc: {
+//     1: "https://mainnet.infura.io/v3/9c48d1f781404552b1a017d597f6bee1/",
+//     // 1: "https://mainnet.mycustomnode.com",
+//   },
+//   qrcode: true,
+//   qrcodeModalOptions: {
+//     mobileLinks: ["metamask", "trust"],
+//   },
+// });
 
 const MAINNET_RPC_URL =
   "https://mainnet.infura.io/v3/9c48d1f781404552b1a017d597f6bee1";
@@ -38,6 +35,7 @@ const onboard = Onboard({
     {
       id: "0x1",
       token: "ETH",
+      namespace: "evm",
       label: "Ethereum Mainnet",
       rpcUrl: MAINNET_RPC_URL,
     },
@@ -52,7 +50,10 @@ const onboard = Onboard({
 export const ConnectWallet = async () => {
   const wallets = await onboard.connectWallet();
   const { accounts, chains, provider } = wallets[0];
+  console.log(provider);
+  // console.log(new Web3.providers.IpcProvider(provider));
   web3 = new Web3(provider);
+  console.log(web3);
   store.getState().ConnectivityReducer.Contract = new web3.eth.Contract(
     NFTAbi,
     NFTContractAddress
