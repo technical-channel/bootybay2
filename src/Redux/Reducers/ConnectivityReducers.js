@@ -5,6 +5,7 @@ const initialState = {
   LaunchpadList: [],
   metamaskConnect: false,
   Contract: [],
+  provider: "",
 };
 
 export function ConnectivityReducer(state = initialState, action) {

@@ -53,12 +53,11 @@ export const ConnectWallet = async () => {
   const { accounts, chains, provider } = wallets[0];
   let data = new ethers.providers.Web3Provider(provider, "any");
   console.log(data);
-  web3 = new Web3(data);
-  console.log(web3);
-  store.getState().ConnectivityReducer.Contract = new web3.eth.Contract(
-    NFTAbi,
-    NFTContractAddress
-  );
+  store.getState().ConnectivityReducer.provider = provider;
+  // store.getState().ConnectivityReducer.Contract = new web3.eth.Contract(
+  //   NFTAbi,
+  //   NFTContractAddress
+  // );
   if (wallets[0].chains[0].id !== "0x1") {
     window.ethereum.on("chainChanged", (chain) => {
       console.log(chain);
@@ -77,4 +76,4 @@ export const ConnectWallet = async () => {
   return wallets;
 };
 
-export const Contract = new web3.eth.Contract(NFTAbi, NFTContractAddress);
+// export const Contract = new web3.eth.Contract(NFTAbi, NFTContractAddress);

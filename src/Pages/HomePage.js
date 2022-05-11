@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-
+import { NFTAbi } from "../config/ABI/NFTAbi";
+import Web3 from "web3";
+import { NFTContractAddress } from "../config/Constant/NFTContractAddress";
 import { BiPlus, BiMinus } from "react-icons/bi";
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
 import { getAllAccountDetails, connectToWallet } from "../Services/Index";
 import { store } from "../Redux/store";
-import { ConnectWallet, Contract, web3 } from "../Services/Web3Connection";
+import { ConnectWallet, web3 } from "../Services/Web3Connection";
 import ProgressBar from "../Components/ProgressBar";
 import "./Slider.css";
 import Slider from "../Components/Slider";
@@ -20,6 +22,8 @@ function HomePage() {
   const [Connect, setConnect] = useState(false);
   const [isTransaction, setisTransaction] = useState(false);
   const [supply, setSupply] = useState(0);
+  const [Contract, setContract] = useState(null);
+  const [web3, setWeb3] = useState(null);
   useEffect(async () => {
     if (store.getState().ConnectivityReducer.metamaskConnect === true) {
       setSupply(
@@ -32,11 +36,16 @@ function HomePage() {
   }, []);
 
   async function _HandleConnect() {
+    console.log(web3, "sdfnjkfhsdk");
+
     console.log(store.getState().ConnectivityReducer);
     await getAllAccountDetails()
       .then(async (res) => {
         if (res.result !== "") {
           setConnect(true);
+          let _web3 = new Web3(store.getState().ConnectivityReducer.provider);
+          setWeb3(_web3);
+          setContract(new _web3.eth.Contract(NFTAbi, NFTContractAddress));
           store.getState().ConnectivityReducer.metamaskConnect = true;
         }
       })
@@ -63,11 +72,11 @@ function HomePage() {
     setCounter(5);
   }
   async function Buy() {
-    await store
-      .getState()
-      .ConnectivityReducer.Contract.methods.balanceOf(
-        store.getState().ConnectivityReducer.metamaskAddress
-      )
+    console.log(store.getState().ConnectivityReducer.provider);
+    let _web3 = new Web3(store.getState().ConnectivityReducer.provider);
+    console.log(new _web3.eth.Contract(NFTAbi, NFTContractAddress).methods);
+    await new _web3.eth.Contract(NFTAbi, NFTContractAddress).methods
+      .balanceOf(store.getState().ConnectivityReducer.metamaskAddress)
       .call()
       .then(async (res) => {
         console.log(res);
@@ -84,9 +93,8 @@ function HomePage() {
             store.getState().ConnectivityReducer.metamaskAddress,
             parseInt(Counter)
           );
-          await store
-            .getState()
-            .ConnectivityReducer.Contract.methods.mintBuy(parseInt(Counter))
+          await new _web3.eth.Contract(NFTAbi, NFTContractAddress).methods
+            .mintBuy(parseInt(Counter))
             .send({
               from: store.getState().ConnectivityReducer.metamaskAddress,
               value: web3.utils.toWei(`${Counter * price}`, "ether"),
